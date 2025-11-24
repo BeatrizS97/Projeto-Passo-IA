@@ -1,0 +1,133 @@
+.header {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Sombra sutil para separar do conteúdo
+  position: sticky; // Fica fixo no topo ao rolar a página
+  top: 0;
+  z-index: 50; // Garante que fica acima de outros elementos
+
+  // Container interno que centraliza e limita a largura
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  // Flexbox para alinhar logo, navegação e botão hambúrguer
+  &__content {
+    display: flex;
+    justify-content: space-between; // Espaço entre logo e navegação
+    align-items: center; // Centraliza verticalmente
+    padding: 1.5rem 0;
+  }
+
+  // Wrapper da logo
+  &__logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Imagem da logo
+  &__logo {
+    height: 60px; // Altura padrão mobile
+    width: auto;
+    max-width: 100%;
+
+    // Aumenta a logo em telas maiores
+    @media (min-width: 768px) {
+      height: 80px;
+    }
+  }
+
+  // Navegação desktop - escondida no mobile
+  &__nav {
+    display: none; // Escondido por padrão (mobile)
+    gap: 2.5rem; // Espaçamento entre os links
+
+    // Mostra a navegação em tablets e desktops
+    @media (min-width: 768px) {
+      display: flex;
+    }
+
+    // Estilo dos links de navegação
+    a {
+      color: #000;
+      text-decoration: none; // Remove sublinhado
+      font-weight: 700; // Negrito
+      font-size: 1.125rem;
+      letter-spacing: 0.05em; // Espaçamento entre letras
+      transition: color 0.3s; // Transição suave na cor
+
+      &:hover {
+        color: #333; // Cor mais clara no hover
+      }
+    }
+  }
+
+  // Botão hambúrguer (menu mobile) - visível apenas no mobile
+  &__menu-btn {
+    display: block; // Visível por padrão (mobile)
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #000;
+
+    // Esconde o botão em tablets e desktops
+    @media (min-width: 768px) {
+      display: none;
+    }
+
+    // Efeito ao passar o mouse
+    &:hover {
+      opacity: 0.7;
+    }
+
+    // Melhora o foco para acessibilidade (navegação por teclado)
+    &:focus {
+      outline: 2px solid #000;
+      outline-offset: 2px;
+    }
+  }
+
+  // Menu mobile - aparece abaixo do header quando aberto
+  &__mobile-nav {
+    display: flex;
+    flex-direction: column; // Links empilhados verticalmente
+    padding-bottom: 1rem;
+    border-top: 1px solid #e5e7eb; // Linha separadora
+
+    // Estilo dos links do menu mobile
+    a {
+      padding: 0.75rem 0; // Espaçamento vertical para facilitar clique
+      color: #000;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.125rem;
+      transition: color 0.3s, background-color 0.3s;
+
+      &:hover {
+        color: #333;
+        background-color: #f9f9f9; // Fundo claro no hover
+      }
+
+      // Linha separadora entre os links
+      &:not(:last-child) {
+        border-bottom: 1px solid #f0f0f0;
+      }
+    }
+
+    // Esconde o menu mobile em tablets e desktops
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+// Respeita preferência do usuário por movimento reduzido (acessibilidade)
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
