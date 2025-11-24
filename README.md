@@ -117,7 +117,7 @@ MIT License - Veja [LICENSE](LICENSE) para detalhes.
 
 **Seu Nome**
 - GitHub: [@BeatrizS97](https://github.com/BeatrizS97)
-- LinkedIn: [Seu Perfil](https://linkedin.com/in/beatrizsilvasantos-dev)
+- LinkedIn: [Beatriz Silva Santos](https://linkedin.com/in/beatrizsilvasantos-dev)
 
 ---
 
