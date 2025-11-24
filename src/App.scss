@@ -130,9 +130,7 @@ body {
   }
 }
 
-// ========================================
 // SEÇÃO: LOOKS E DICAS DE MAQUIAGEM
-// ========================================
 
 .looks-section {
   padding: 4rem 0;
@@ -206,9 +204,7 @@ body {
   }
 }
 
-// ========================================
 // SEÇÃO: LANÇAMENTOS (PRODUTO)
-// ========================================
 
 .lancamentos-section {
   padding: 4rem 0;
@@ -319,9 +315,7 @@ body {
   }
 }
 
-// ========================================
 // INFORMAÇÕES DO PRODUTO
-// ========================================
 
 .product-info {
   // Avaliação com estrelas
@@ -466,6 +460,15 @@ body {
   margin-bottom: 1.5rem;
   letter-spacing: 0.05em;
 
+  .btn-loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .btn-icon--spin {
+    animation: spin 1s linear infinite; // Reusa o @keyframes spin existente
+  }
+
   &:hover:not(:disabled) {
     background-color: #333;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -488,9 +491,7 @@ body {
   }
 }
 
-// ========================================
 // SEÇÃO: NOVIDADES
-// ========================================
 
 .novidades-section {
   padding: 4rem 0;
@@ -529,9 +530,7 @@ body {
   }
 }
 
-// ========================================
 // CONFIGURAÇÕES GLOBAIS
-// ========================================
 
 // Habilita scroll suave em toda a página
 html {

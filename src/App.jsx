@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Star, ShoppingCart, Loader2 } from 'lucide-react';
-import { motion } from 'framer-motion';
+// Removido: import { Star, ShoppingCart, Loader2 } from 'lucide-react';
+// Removido: import { motion } from 'framer-motion';
 import './App.scss';
 
 // Imports das imagens - Looks
@@ -133,7 +133,7 @@ function App() {
   if (loading) {
     return (
       <div className="loading-screen">
-        <Loader2 className="loading-spinner" size={48} />
+        <div className="loading-spinner">⏳</div> {/* Spinner simples com emoji */}
         <p>Carregando...</p>
       </div>
     );
@@ -157,26 +157,12 @@ function App() {
               LOOKS E DICAS DE MAQUIAGEM
             </h2>
             
-            {/* Grid animado com os 4 cards de looks */}
-            <motion.div
-              className="looks-grid"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={{
-                // Animação escalonada: cada card aparece com 0.15s de atraso em relação ao anterior
-                visible: { transition: { staggerChildren: 0.15 } }
-              }}
-            >
+            {/* Grid com os 4 cards de looks - Removido motion pra simplificar, mas pode voltar se quiser */}
+            <div className="looks-grid">
               {looksData.map((item, index) => (
-                <motion.div
+                <div
                   key={index}
                   className="looks-card"
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
-                  }}
-                  whileHover={{ y: -8 }} // Eleva o card ao passar o mouse
                   role="article"
                   aria-label={`Dicas de maquiagem para ${item.title.toLowerCase()}`}
                 >
@@ -190,9 +176,9 @@ function App() {
                   <div className="looks-card__overlay">
                     <h3>{item.title}</h3>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -226,7 +212,7 @@ function App() {
                   ))}
                 </div>
                 
-                {/* Imagem principal do produto - SEM animação de fade ao trocar cor */}
+                {/* Imagem principal do produto */}
                 <div className="product-showcase__main">
                   <img
                     src={currentImage}
@@ -238,16 +224,10 @@ function App() {
 
               {/* Lado direito: informações do produto */}
               <div className="product-info">
-                {/* Avaliação com 5 estrelas */}
+                {/* Avaliação com 5 estrelas - Simplificado com emojis */}
                 <div className="product-info__rating" aria-label="Avaliação: 5 de 5 estrelas">
                   {[1,2,3,4,5].map((star) => (
-                    <Star 
-                      key={star} 
-                      className="star-icon" 
-                      fill="#FFC107" 
-                      stroke="#FFC107"
-                      aria-hidden="true"
-                    />
+                    <span key={star} className="star-icon" aria-hidden="true">⭐</span>
                   ))}
                   <span className="sr-only">5 estrelas</span>
                 </div>
@@ -256,26 +236,21 @@ function App() {
                 <h3 className="product-info__title">Matte Premium</h3>
                 
                 {/* Preços: antigo, atual e desconto */}
-                <motion.div 
-                  className="product-info__price"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
+                <div className="product-info__price">
                   <span className="price-old">R$ 89,90</span>
                   <span className="price-current">R$ 59,90</span>
                   <span className="price-discount">33% OFF</span>
-                </motion.div>
+                </div>
 
                 {/* Texto indicando cores disponíveis + nome da cor selecionada */}
                 <p className="product-info__availability">
                   Cores disponíveis - {colorNames[selectedColor]}
                 </p>
                 
-                {/* Seletor de cores (4 círculos coloridos) */}
+                {/* Seletor de cores (4 círculos coloridos) - Removido motion, mas funciona com CSS */}
                 <div className="product-info__colors" role="radiogroup" aria-label="Selecione a cor">
                   {colors.map((color, index) => (
-                    <motion.button
+                    <button
                       key={index}
                       className={`color-swatch ${selectedColor === color ? 'color-swatch--selected' : ''}`} 
                       style={{backgroundColor: color}} 
@@ -284,33 +259,29 @@ function App() {
                       role="radio"
                       title={`Tom: ${colorNames[color]}`}
                       onClick={() => handleColorSelect(color)}
-                      whileHover={{ scale: 1.15 }} // Aumenta ao passar mouse
-                      whileTap={{ scale: 0.9 }} // Diminui ao clicar
                     />
                   ))}
                 </div>
 
-                {/* Botão para adicionar ao carrinho */}
-                <motion.button
-                  className="add-to-cart-btn"
+                {/* Botão para adicionar ao carrinho - SIMPLIFICADO SEM FRAMER/LUCIDE */}
+                <button
+                  className={`add-to-cart-btn ${isAddingToCart ? 'btn-loading' : ''}`}
                   onClick={handleAddToCart}
                   disabled={isAddingToCart}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                   aria-label="Adicionar produto ao carrinho"
                 >
                   {isAddingToCart ? (
                     <>
-                      <Loader2 className="btn-icon btn-icon--spin" size={20} />
+                      <span className="btn-icon btn-icon--spin">⏳</span> {/* Spinner simples */}
                       Adicionando...
                     </>
                   ) : (
                     <>
-                      <ShoppingCart className="btn-icon" size={20} />
+                      <span className="btn-icon">🛒</span> {/* Emoji carrinho */}
                       Adicionar ao Carrinho
                     </>
                   )}
-                </motion.button>
+                </button>
 
                 {/* Descrição do produto */}
                 <h4 className="product-info__subtitle">Descrição</h4>
@@ -329,20 +300,14 @@ function App() {
               NOVIDADES PARA VOCÊ
             </h2>
             
-            {/* Imagem grande das novidades com animação de entrada */}
-            <motion.div
-              className="novidades-image"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
+            {/* Imagem grande das novidades */}
+            <div className="novidades-image">
               <img 
                 src={novidadesImg}
                 alt="Últimas novidades em produtos de maquiagem e skincare"
                 loading="lazy"
               />
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>
