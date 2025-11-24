@@ -1,0 +1,527 @@
+// Reset básico para remover margens e paddings padrão do navegador
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+// Container principal da aplicação
+.app {
+  min-height: 100vh;
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+// Skip link para acessibilidade - permite usuários de teclado pularem direto ao conteúdo
+.skip-link {
+  position: absolute;
+  top: -100px; // Escondido por padrão
+  left: 0;
+  background: #000;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  z-index: 100;
+
+  &:focus {
+    top: 0; // Aparece quando recebe foco (Tab)
+  }
+}
+
+// Classe para ocultar elementos visualmente mas mantê-los acessíveis para screen readers
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Tela de carregamento inicial
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: white;
+  gap: 1rem;
+
+  .loading-spinner {
+    animation: spin 1s linear infinite; // Spinner girando infinitamente
+    color: #000;
+  }
+
+  p {
+    font-size: 1.125rem;
+    color: #666;
+  }
+}
+
+// Animação de rotação para o spinner
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Container responsivo que centraliza conteúdo e adiciona padding lateral
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  @media (min-width: 640px) {
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 0 2rem;
+  }
+}
+
+// Título padrão das seções
+.section-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+  color: #000;
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+// ========================================
+// SEÇÃO: LOOKS E DICAS DE MAQUIAGEM
+// ========================================
+
+.looks-section {
+  padding: 4rem 0;
+  background-color: #f5f5f5;
+}
+
+// Grid responsivo: 2 colunas no mobile, 4 no desktop
+.looks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+// Card individual de cada look
+.looks-card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); // Sombra mais forte no hover
+  }
+
+  // Wrapper da imagem para controlar o overflow do zoom
+  &__image-wrapper {
+    overflow: hidden;
+    height: 300px;
+
+    @media (min-width: 768px) {
+      height: 350px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease; // Transição suave para o zoom
+    }
+  }
+
+  // Efeito de zoom na imagem ao passar o mouse no card
+  &:hover &__image-wrapper img {
+    transform: scale(1.1);
+  }
+
+  // Overlay escuro com gradiente na parte inferior do card
+  &__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: 2rem 1rem 1rem;
+
+    h3 {
+      color: white;
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin: 0;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+// ========================================
+// SEÇÃO: LANÇAMENTOS (PRODUTO)
+// ========================================
+
+.lancamentos-section {
+  padding: 4rem 0;
+  background-color: white;
+}
+
+// Layout do produto: imagens à esquerda, info à direita
+.lancamentos-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr; // 50/50 em tablets
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 968px) {
+    grid-template-columns: 45% 55%; // 45/55 em desktops
+    gap: 3rem;
+  }
+}
+
+// Container das imagens do produto (thumbnails + imagem principal)
+.product-showcase {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column; // Coluna no mobile
+
+  @media (min-width: 768px) {
+    flex-direction: row; // Linha no desktop
+  }
+
+  // Container das 3 thumbnails laterais
+  &__thumbnails {
+    display: flex;
+    flex-direction: row; // Horizontal no mobile
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    @media (min-width: 768px) {
+      flex-direction: column; // Vertical no desktop
+      width: 100px;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      gap: 1rem;
+    }
+  }
+
+  // Container da imagem principal do produto
+  &__main {
+    flex: 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: #f9f9f9;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      // REMOVIDO: AnimatePresence e motion para mudança instantânea sem fade
+    }
+  }
+}
+
+// Botões das thumbnails clicáveis
+.thumbnail-btn {
+  width: 80px;
+  height: 80px;
+  border: 3px solid transparent;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: none;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    width: 100%;
+    height: 100px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &:hover {
+    transform: scale(1.05); // Leve zoom ao passar mouse
+    border-color: #999;
+  }
+
+  &:focus {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+
+  // Estilo da thumbnail ativa (selecionada)
+  &--active {
+    border-color: #000;
+    transform: scale(1.05);
+  }
+}
+
+// ========================================
+// INFORMAÇÕES DO PRODUTO
+// ========================================
+
+.product-info {
+  // Avaliação com estrelas
+  &__rating {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+
+    .star-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  // Nome do produto
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #000;
+
+    @media (min-width: 768px) {
+      font-size: 1.75rem;
+    }
+  }
+
+  // Seção de preços (antigo, atual e desconto)
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+
+    .price-old {
+      font-size: 1rem;
+      color: #999;
+      text-decoration: line-through; // Riscado
+    }
+
+    .price-current {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .price-discount {
+      background-color: #ff4444;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: bold;
+    }
+  }
+
+  // Texto de disponibilidade + nome da cor selecionada
+  &__availability {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+
+  // Container dos círculos de seleção de cor
+  &__colors {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+
+    @media (min-width: 768px) {
+      justify-content: flex-start;
+    }
+  }
+
+  // Subtítulo "Descrição"
+  &__subtitle {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+    color: #000;
+  }
+
+  // Texto da descrição do produto
+  &__description {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: #333;
+  }
+}
+
+// Círculos de seleção de cor
+.color-swatch {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  background: none;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &:hover {
+    border-color: #999;
+  }
+
+  &:focus {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+
+  // Estilo da cor selecionada (dupla borda para destaque)
+  &--selected {
+    border-color: #000;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #000;
+  }
+}
+
+// Botão "Adicionar ao Carrinho"
+.add-to-cart-btn {
+  width: 100%;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+
+  &:hover:not(:disabled) {
+    background-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px); // Efeito de clique
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .btn-icon {
+    // Animação de rotação para o ícone de loading
+    &--spin {
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+// ========================================
+// SEÇÃO: NOVIDADES
+// ========================================
+
+.novidades-section {
+  padding: 4rem 0;
+  background-color: #f5f5f5;
+}
+
+// Container da imagem de novidades
+.novidades-image {
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  img {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.5s ease;
+
+    @media (min-width: 768px) {
+      min-height: 400px;
+    }
+
+    @media (min-width: 1024px) {
+      min-height: 500px;
+    }
+  }
+
+  // Leve zoom na imagem ao passar o mouse
+  &:hover img {
+    transform: scale(1.03);
+  }
+}
+
+// ========================================
+// CONFIGURAÇÕES GLOBAIS
+// ========================================
+
+// Habilita scroll suave em toda a página
+html {
+  scroll-behavior: smooth;
+}
+
+// Respeita preferência do usuário por movimento reduzido (acessibilidade)
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
