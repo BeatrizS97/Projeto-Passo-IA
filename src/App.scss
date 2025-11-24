@@ -33,6 +33,30 @@ body {
   }
 }
 
+// Notificação Toast - aparece no topo da tela
+.toast-notification {
+  position: fixed;
+  top: 2rem;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #000;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 1000;
+  font-weight: 500;
+
+  @media (max-width: 640px) {
+    right: 1rem;
+    left: 1rem;
+    transform: none;
+  }
+}
+
 // Classe para ocultar elementos visualmente mas mantê-los acessíveis para screen readers
 .sr-only {
   position: absolute;

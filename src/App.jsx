@@ -43,6 +43,9 @@ function App() {
   
   // Estado para controlar o loading do botão "Adicionar ao Carrinho"
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  
+  // Estado para controlar a notificação toast
+  const [showToast, setShowToast] = useState(false);
 
   // Effect para simular carregamento inicial da página (1 segundo)
   useEffect(() => {
